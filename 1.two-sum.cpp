@@ -28,11 +28,11 @@
 class Solution {
 public:
     // 暴力法，时间n方，空间1
-    vector<int> twoSum(vector<int>& nums, int target) {
+    // 186ms
+    vector<int> twoSum1(vector<int>& nums, int target) {
         vector<int> ret;
-        size_t num = nums.size();
-        for (int i = 0; i < num; ++i) {
-            for (int j = i+1; j < num; ++j) {
+        for (int i = 0; i < nums.size(); ++i) {
+            for (int j = i+1; j < nums.size(); ++j) {
                 if (nums[i] + nums[j] == target) {
                     ret.push_back(i);
                     ret.push_back(j);
@@ -42,4 +42,25 @@ public:
         }
         return ret;
     }
+
+    // 遍历过程中插入map，看前边是否已有合适的
+    // 相当于遍历的是后一个元素，去找map里是否有前一个。
+    // 时间n，空间n
+    // 9ms
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> ret;
+        map<int, int> m;
+        for (int i = 0; i < nums.size(); ++i) {
+            map<int, int>::iterator iter = m.find(target - nums[i]);
+            if (iter != m.end()) {
+                ret.push_back(iter->second);
+                ret.push_back(i);
+                return ret;
+            } else {
+                m[nums[i]] = i;
+            }
+        }
+        return ret;
+    }
+
 };

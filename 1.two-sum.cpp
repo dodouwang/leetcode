@@ -28,7 +28,7 @@
 class Solution {
 public:
     // 暴力法，时间n方，空间1
-    // 186ms 
+    // 186ms
     vector<int> twoSum1(vector<int>& nums, int target) {
         vector<int> ret;
         for (int i = 0; i < nums.size(); ++i) {

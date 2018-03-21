@@ -38,7 +38,7 @@ public:
     // 简单的先用一个多余的头
     // 相当于循环进入状态是当前尾部是上一个节点，需自己新建
     // 结尾时需delete掉
-    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    ListNode* addTwoNumbers1(ListNode* l1, ListNode* l2) {
         int added = 0;
         ListNode *head = new ListNode(0);
         ListNode *tail = head;
@@ -71,7 +71,36 @@ public:
         return tail;
     }
     // 不用多余的头
-    // 相当于每次循环进入时
-    // ListNode* addTwoNumbers1(ListNode* l1, ListNode* l2) {
-    // }
+    // 相当于每次循环进入时下一个节点已经准备好，结束时也需要提前准备好下一个节点
+    // 之所以在做完循环最后才准备下一个节点，而不是在开头时，是为了避免记录上一个节点，否则头结点没有上一个，啰嗦
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        int added = 0;
+        ListNode *ret = new ListNode(0);
+        ListNode *cur = ret;
+        bool need_continue = true;
+        do {
+            if (l1) {
+                cur->val += l1->val;
+                l1 = l1->next;
+            }
+            if (l2) {
+                cur->val += l2->val;
+                l2 = l2->next;
+            }
+            cur->val += added;
+            if (cur->val > 9) {
+                cur->val -= 10;
+                added = 1;
+            } else {
+                added = 0;
+            }
+            need_continue = added > 0 || l1 || l2;
+            if (need_continue) {
+                ListNode *tmp = new ListNode(0);
+                cur->next = tmp;
+                cur = tmp;
+            }
+        } while (need_continue);
+        return ret;
+    }
 };

@@ -20,11 +20,7 @@
 class Solution {
 public:
     int divide(int dividend, int divisor) {
-        if (divisor ==0) {
-            return INT_MAX;
-        }
-
-        if (dividend == -2147483648 && divisor == -1) {
+        if (divisor ==0 || (dividend == -2147483648 && divisor == -1)) {
             return INT_MAX;
         }
 

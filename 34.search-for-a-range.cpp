@@ -28,13 +28,16 @@ public:
         vector<int> r;
         int sz = nums.size();
         int b = 0, e = sz - 1;
+        // while需要保证内部不能死循环，
+        // 要么内部首先需要有判断退出的逻辑。
+        // 否则每一次调整边界必须要缩小，不能不变
         while (b <= e) {
             int m = (b + e) / 2;
             if (target < nums[m]) {
-                e = m - 1;
+                e = m - 1; // 缩小边界
                 continue;
             } else if (target > nums[m]) {
-                b = m + 1;
+                b = m + 1; // 缩小边界
                 continue;
             } else {
                 int lb = b, le = m;
@@ -50,7 +53,7 @@ public:
                 }
                 int rb = m, re = e;
                 while (rb < re) {
-                    int rm = (rb + re + 1) / 2;
+                    int rm = (rb + re + 1) / 2; // 注意中点的选择，为了保证缩小边界
                     if (nums[rm] > target) {
                         re = rm - 1;
                         continue;
@@ -64,6 +67,7 @@ public:
                 return r;
             }
         }
+        // 若内部没能找到，最后边界已不合法，就是没找到了。
         r.push_back(-1);
         r.push_back(-1);
         return r;

@@ -60,19 +60,18 @@ public:
             } while (b < c.size() && c[b] == cur_value);
 
             // 重复多少次，就分别用几次当前的cur_value去凑，
+            vector<int> cur_added;
             for (int cur_times = 1; cur_times <= times; ++cur_times) {
                 int value_sum = cur_value * cur_times;
                 if (value_sum > t) {
                     break;
-                } 
+                }
+                cur_added.push_back(cur_value);
                 vector<vector<int>> vv = this->calc(c, t - value_sum, b);
                 if (!vv.empty()) {
                     // 若有合适的结果返回，就对每个结果都加上当前几次cur_value;
                     for (int j = 0; j < vv.size(); ++j) {
-                        int times_tmp = cur_times;
-                        while (times_tmp--) {
-                            vv[j].push_back(cur_value);
-                        }
+                        vv[j].insert(vv[j].end(), cur_added.begin(), cur_added.end());
                     }
                     // 把加入了cur_times次cur_value后的结果集加入到最终结果集中
                     ret.insert(ret.end(), vv.begin(), vv.end());

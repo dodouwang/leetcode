@@ -50,30 +50,34 @@ public:
             return ret;
         }
 
-        for (int i = b; i < c.size();) {
-            int k = i;
-            while (k + 1 < c.size() && c[k] == c[k+1]) {
-                k++;
-            }
-            int times = 1;
-            while (times <= k - i + 1) {
-                if (c[i] * times <= t) {
-                    vector<vector<int>> vv = this->calc(c, t - c[i] * times , k+1);
-                    if (!vv.empty()) {
-                        for (int j = 0; j < vv.size(); ++j) {
-                            int times_tmp = times;
-                            while (times_tmp--) {
-                                vv[j].push_back(c[i]);
-                            }
-                        }
-                        ret.insert(ret.end(), vv.begin(), vv.end());
-                    }
-                } else {
-                    break;
-                }
+        while (b < c.size()) {
+            int cur_value = c[b];
+            // 算出当前c[b]的值在之后重复了多少次，并且将b推至下一个不重复的位置
+            int times = 0;
+            do {
                 times++;
+                b++;
+            } while (b < c.size() && c[b] == cur_value);
+
+            // 重复多少次，就分别用几次当前的cur_value去凑，
+            for (int cur_times = 1; cur_times <= times; ++cur_times) {
+                int value_sum = cur_value * cur_times;
+                if (value_sum > t) {
+                    break;
+                } 
+                vector<vector<int>> vv = this->calc(c, t - value_sum, b);
+                if (!vv.empty()) {
+                    // 若有合适的结果返回，就对每个结果都加上当前几次cur_value;
+                    for (int j = 0; j < vv.size(); ++j) {
+                        int times_tmp = cur_times;
+                        while (times_tmp--) {
+                            vv[j].push_back(cur_value);
+                        }
+                    }
+                    // 把加入了cur_times次cur_value后的结果集加入到最终结果集中
+                    ret.insert(ret.end(), vv.begin(), vv.end());
+                }
             }
-            i = k + 1;
         }
         return ret;
     }};

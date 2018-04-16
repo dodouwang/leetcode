@@ -24,6 +24,22 @@
  */
 class Solution {
 public:
+    void calc_in(vector<int> &v, int tmp, int pp) {
+        int added = pp;
+        while (tmp < v.size()) {
+            v[tmp] += added;
+            if (v[tmp] < 10) {
+                break;
+            }
+            v[tmp] -= 10;
+            added = 1;
+            tmp++;
+        }
+    }
+    void calc(vector<int> &v, int aim, int p) {
+        this->calc_in(v, aim, p % 10);
+        this->calc_in(v, aim+1, p / 10);
+    }
     string multiply(string num1, string num2) {
         if (num1 == "0" || num2 == "0") {
             return "0";
@@ -36,36 +52,7 @@ public:
         vector<int> v(len, 0);
         for (int i = 0; i < len1; ++i) {
             for (int j = 0; j < len2; ++j) {
-                int aim = i + j;
-                int loc1 = len1-1-i;
-                int loc2 = len2-1-j;
-                int n1 = num1[loc1] - '0';
-                int n2 = num2[loc2] - '0';
-                int p = n1 * n2;
-                int a = p % 10;
-                int aa = p / 10;
-                int tmp = aim;
-                int added = a;
-                while (tmp < len) {
-                    v[tmp] += added;
-                    if (v[tmp] < 10) {
-                        break;
-                    }
-                    v[tmp] -= 10;
-                    added = 1;
-                    tmp++;
-                }
-                tmp = aim + 1;
-                added = aa;
-                while (tmp < len) {
-                    v[tmp] += added;
-                    if (v[tmp] < 10) {
-                        break;
-                    }
-                    v[tmp] -= 10;
-                    added = 1;
-                    tmp++;
-                }
+                this->calc(v, i+j, (num1[len1-1-i] - '0')*(num2[len2-1-j] - '0'));
             }
         }
 

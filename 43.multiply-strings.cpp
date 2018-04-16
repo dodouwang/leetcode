@@ -25,6 +25,10 @@
 class Solution {
 public:
     string multiply(string num1, string num2) {
+        if (num1 == "0" || num2 == "0") {
+            return "0";
+        }
+
         string r = "";
         int len1 = num1.length();
         int len2 = num2.length();
@@ -72,10 +76,6 @@ public:
 
         for (; i >= 0; --i) {
             r += ('0' + v[i]);
-        }
-
-        if (r == "") {
-            return "0";
         }
 
         return r;

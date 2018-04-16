@@ -24,6 +24,8 @@
  */
 class Solution {
 public:
+    // 如果满足什么条件就继续 可以变成如果满足什么条件就break。
+    // 后者有时候会简单些，因为往往前者需要满足条件之后再做点什么再进入下一个循环
     void calc_in(vector<int> &v, int tmp, int pp) {
         int added = pp;
         while (tmp < v.size()) {

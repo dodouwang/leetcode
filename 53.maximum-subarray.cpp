@@ -29,6 +29,23 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
+        int sz = nums.size();
+        if (sz == 0) {
+            return 0;
+        }
+        
+        int total_max = nums[0];
+        int tail_max = nums[0];
+
+        for (int i = 1; i < sz; i++) {
+            tail_max = max(nums[i], nums[i] + tail_max);
+            total_max = max(tail_max, total_max);
+        }
+
+        return total_max;
+    }
+
+    int maxSubArray1(vector<int>& nums) {
         int total_max = 0;
         int tail_max = 0;
         int i = 0;
@@ -56,7 +73,6 @@ public:
                 i++;
             }
 
-            //cout << fu << " " << zh << endl;
             if (tail_max + fu > 0) {
                 tail_max = tail_max + fu + zh;
             } else {

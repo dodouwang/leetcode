@@ -58,7 +58,7 @@ public:
         return t;
     } 
 
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    vector<vector<string>> groupAnagrams1(vector<string>& strs) {
         unordered_map<string, multiset<string>> mp;
         for (string s : strs) {
             string t = s; 
@@ -73,7 +73,7 @@ public:
             return anagrams;
     }
     
-    vector<vector<string>> groupAnagrams1(vector<string>& strs) {
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
         vector<vector<string>> r;
         map<vector<int>, vector<string>> m;
         vector<int> v(26, 0);

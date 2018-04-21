@@ -64,14 +64,17 @@ public:
             }
         }
 
-
+        unsigned long long p = n;
         if (n < 0) {
-            n = -n;
+            p = -n;
             x = 1 / x;
         }
-        
-        while (n-- && r != z) {
-            r *= x;
+
+        while (p > 0 && r != z) {
+            if (p & 1)
+                r *= x;
+            x *= x;
+            p >>= 1;
         }
         return r;
     }

@@ -64,10 +64,9 @@ public:
             }
         }
 
-        // 
-        unsigned int p = n;
-        if (n < 0) {
-            p = -n;
+        long long p = n;
+        if (p < 0) {
+            p = -p;
             x = 1 / x;
         }
 

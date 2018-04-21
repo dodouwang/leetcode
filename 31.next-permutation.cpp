@@ -33,29 +33,23 @@ public:
     void nextPermutation(vector<int>& nums) {
         int sz = nums.size();
 
-        int j = sz - 2;
-        while (j >= 0 && nums[j] >= nums[j+1]) {
+        int j = sz - 1;
+        while (j > 0 && nums[j] <= nums[j-1]) {
             j--;
         }
-        int b = j + 1;
+        int b = j;
         int e = sz - 1;
         int t;
         //右侧重排序
         while (b < e) {
-            t = nums[e];
-            nums[e] = nums[b];
-            nums[b] = t;
-            b++;
-            e--;
+            swap(nums[b++], nums[e--]);
         }
 
-        if (j >= 0) {
-            //找到右侧第一个比nums[j]大的元素，并交换之。
-            for (int k = j+1; k < sz; ++k) {
-                if (nums[k] > nums[j]) {
-                    t = nums[j];
-                    nums[j] = nums[k];
-                    nums[k] = t;
+        if (j > 0) {
+            //找到排序后第一个比nums[j-1]大的元素，并交换之。
+            for (int k = j; k < sz; ++k) {
+                if (nums[k] > nums[j-1]) {
+                    swap(nums[j-1], nums[k]);
                     break;
                 }
             }

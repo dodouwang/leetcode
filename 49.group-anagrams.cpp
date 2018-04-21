@@ -33,6 +33,19 @@
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
+            unordered_map<string, vector<string>> mp;
+            for (string s : strs) {
+                string t = strSort(s);
+                mp[t].push_back(s);
+            }
+            vector<vector<string>> anagrams;
+            for (auto m : mp) { 
+                anagrams.push_back(m.second);
+            }
+            return anagrams;
+        }
+
+    vector<vector<string>> groupAnagrams3(vector<string>& strs) {
             unordered_map<string, multiset<string>> mp;
             for (string s : strs) {
                 string t = strSort(s);

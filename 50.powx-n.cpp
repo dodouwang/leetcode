@@ -65,19 +65,15 @@ public:
         }
 
 
-
-        if (n > 0) {
-            while (n-- && r != z) {
-                r *= x;
-            }
-            return r;
-        } else {
-            while (n++ && r != z) {
-                r /= x;
-            }
-            return r;
-            
+        if (n < 0) {
+            n = -n;
+            x = 1 / x;
         }
+        
+        while (n-- && r != z) {
+            r *= x;
+        }
+        return r;
     }
 };
 static int x=[](){

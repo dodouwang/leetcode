@@ -28,6 +28,7 @@
  */
 class Solution {
 public:
+    // DP法的核心在于找出公式，监控tail_max，并与total_max区分。无需如fun1先行分段
     int maxSubArray(vector<int>& nums) {
         int sz = nums.size();
         if (sz == 0) {

@@ -43,7 +43,7 @@ public:
     // 这是一个一个的推
     bool canJump(vector<int>& nums) {
         int i = 0, m = 0;
-        for (; i < nums.size() && i <= m; i++) {
+        for (; i < nums.size() - 1 && i <= m; i++) {
             m = max(m, i + nums[i]);
             // m是当前能够到的最高位置，更新m后，i++，看新i能否继续前推，若发现新i已超出m，说明不行了，要停下。
             // 停下时，i-1就是m了，

@@ -41,6 +41,14 @@ class Solution {
 public:
     map<int, int> s;
     bool canJump(vector<int>& nums) {
+        int i = 0;
+        for (int m = 0; i < nums.size() && i <= m; i++) {
+            m = max(m, i + nums[i]);
+        }
+        return i == nums.size();
+    }
+    // 递归会层数太多溢出，还是用主动前推吧
+    bool canJump2(vector<int>& nums) {
         int n = nums.size() - 1;
 
         if (n == 0) return true;

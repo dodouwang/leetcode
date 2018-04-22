@@ -43,7 +43,7 @@ public:
     // 这是一个一个的推
     bool canJump(vector<int>& nums) {
         // to_check: 当前能达到而且接下来要计算延伸的位置。
-        // m: 当前能够到的最高位置
+        // m: 当前能够到的最高位置。
         int to_check = 0, m = 0;
         while (to_check < nums.size() - 1 && to_check <= m) {
             m = max(m, to_check + nums[to_check]);
@@ -59,6 +59,8 @@ public:
 
         if (n == 0) return true;
         
+        // checked 上次已经计算过延伸的位置
+        // to_check: 当前能达到而且接下来要计算延伸的位置中的最高处。
         int checked = -1;
         int to_check = 0;
         while (to_check > checked) {

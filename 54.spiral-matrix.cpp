@@ -48,7 +48,6 @@ public:
             return r;
         }
         r.assign(matrix[0].begin(), matrix[0].end());
-        //cout << r << endl;
         int mi = 0, ni = n - 1, gap = 1;
         while (true) {
             int down = m - gap;
@@ -56,9 +55,7 @@ public:
                 break;
             }
             while (down--) {
-                //cout << "mi:" << ++mi << " ni:" << ni << endl;
                 int i = matrix[++mi][ni];
-                //cout << i << endl;
                 r.push_back(i);
             }
 
@@ -67,9 +64,7 @@ public:
                 break;
             }
             while (left--) {
-                //cout << "mi:" << mi << " ni:" << --ni << endl;
                 int i = matrix[mi][--ni];
-                //cout << i << endl;
                 r.push_back(i);
             }
 
@@ -79,9 +74,7 @@ public:
                 break;
             }
             while (up--) {
-                //cout << --mi << " " << ni << endl;
                 int i = matrix[--mi][ni];
-                //cout << i << endl;
                 r.push_back(i);
             }
 
@@ -90,9 +83,7 @@ public:
                 break;
             }
             while (right--) {
-                //cout << mi << " " << ++ni << endl;
                 int i = matrix[mi][++ni];
-                //cout << i << endl;
                 r.push_back(i);
             }
             gap++;
@@ -100,3 +91,8 @@ public:
         return r;
     }
 };
+static int x=[](){
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    return 0;
+}();

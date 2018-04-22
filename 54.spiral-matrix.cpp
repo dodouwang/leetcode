@@ -55,8 +55,7 @@ public:
                 break;
             }
             while (down--) {
-                int i = matrix[++mi][ni];
-                r.push_back(i);
+                r.push_back(matrix[++mi][ni]);
             }
 
             int left = n - gap;
@@ -64,8 +63,7 @@ public:
                 break;
             }
             while (left--) {
-                int i = matrix[mi][--ni];
-                r.push_back(i);
+                r.push_back(matrix[mi][--ni]);
             }
 
             gap++;
@@ -74,8 +72,7 @@ public:
                 break;
             }
             while (up--) {
-                int i = matrix[--mi][ni];
-                r.push_back(i);
+                r.push_back(matrix[--mi][ni]);
             }
 
             int right = n - gap;
@@ -83,8 +80,7 @@ public:
                 break;
             }
             while (right--) {
-                int i = matrix[mi][++ni];
-                r.push_back(i);
+                r.push_back(matrix[mi][++ni]);
             }
             gap++;
         }

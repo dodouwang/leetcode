@@ -55,12 +55,10 @@ public:
         }
 
         p2q = make_pair(m-1, n);
-        auto a = this->m.find(p2q);
-        int r1 = a != this->m.end() ? a->second : this->uniquePaths(m-1,n);
+        int r1 = this->m[p2q] ? this->m[p2q] : this->uniquePaths(m-1,n);
             
         p2q = make_pair(m, n-1);
-        a = this->m.find(p2q);
-        int r2 = a != this->m.end() ? a->second : this->uniquePaths(m,n-1);
+        int r2 = this->m[p2q] ? this->m[p2q] : this->uniquePaths(m,n-1);
             
         int r = r1 + r2;
         this->m[p2w] = r;

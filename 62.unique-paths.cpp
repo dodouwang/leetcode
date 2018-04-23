@@ -45,7 +45,7 @@
  */
 class Solution {
 public:
-    map<pair<int, int>, int> m;
+    // 直接计算，时间O(m*n)，空间O(m*n)，空间可优化
     int uniquePaths(int m, int n) {
         vector<int> vv(m, 1);
         vector<vector<int>> v(n, vv);
@@ -56,6 +56,8 @@ public:
         }
         return v[n-1][m-1];
     }
+    // 递归做法，慢
+    map<pair<int, int>, int> m;
     int uniquePaths1(int m, int n) {
         pair<int, int> p2w(m,n);
         pair<int, int> p2q;        

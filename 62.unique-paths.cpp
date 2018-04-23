@@ -47,6 +47,16 @@ class Solution {
 public:
     map<pair<int, int>, int> m;
     int uniquePaths(int m, int n) {
+        vector<int> vv(m, 1);
+        vector<vector<int>> v(n, vv);
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                v[i][j] = v[i-1][j] + v[i][j-1];
+            }
+        }
+        return v[n-1][m-1];
+    }
+    int uniquePaths1(int m, int n) {
         pair<int, int> p2w(m,n);
         pair<int, int> p2q;        
         if (m == 1 || n == 1) {

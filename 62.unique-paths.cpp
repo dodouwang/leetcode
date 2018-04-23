@@ -45,8 +45,21 @@
  */
 class Solution {
 public:
-    // 直接计算，时间O(m*n)，空间O(m*n)，空间可优化
+    // 直接计算，时间O(m*n)，优化空间O(min(m,n))，空间可优化
     int uniquePaths(int m, int n) {
+        if (m > n) {
+            swap(m, n);
+        }
+        vector<int> v(m, 1);
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                v[j] += v[j-1];
+            }
+        }
+        return v[m-1];
+    }
+    // 直接计算，时间O(m*n)，空间O(m*n)，空间可优化
+    int uniquePaths2(int m, int n) {
         vector<int> vv(m, 1);
         vector<vector<int>> v(n, vv);
         for (int i = 1; i < n; i++) {

@@ -44,12 +44,11 @@ public:
             return 1;
         }
         while (h-l>1) {
+            c = (h+l)/2;
             if (c*c > x) {
                 h = c;
-                c = (h+l)/2;
             } else if (c*c < x) {
                 l = c;
-                c = (h+l)/2;
             } else {
                 return c;
             }

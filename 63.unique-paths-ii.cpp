@@ -45,7 +45,7 @@
  */
 class Solution {
 public:
-    // 直接计算，时间O(m*n)，优化空间O(min(m,n))，空间可优化，考虑(n+m)! / m! / n!，O(1)即可
+    // 直接计算，时间O(m*n)，优化空间O(min(m,n))
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int n = obstacleGrid.size();
         if (n == 0) {

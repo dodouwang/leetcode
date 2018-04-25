@@ -58,6 +58,7 @@
  */
 class Solution {
 public:
+    // O(2),还可以继续优化到O(1)
     void setZeroes(vector<vector<int>>& matrix) {
         size_t n = matrix.size();
         if (n == 0) {

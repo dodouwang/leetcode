@@ -45,7 +45,7 @@ public:
             if (nums[i] == 0) {
                 swap(nums[i], nums[b]);
                 b++;
-                i = b;
+                i++;
             } else if (nums[i] == 1) {
                 i++;
             } else {

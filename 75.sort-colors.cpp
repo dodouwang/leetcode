@@ -41,11 +41,14 @@ public:
     void sortColors(vector<int>& nums) {
         size_t n = nums.size();
         int b = 0, e = n-1, i = 0;
+        // <b为0, >e为2.
+        // i一直走到e，超过b的原因是值为1
+        // i前边不可能有2, 0也是全部排好序的，那么剩下超过b的都是1了。
         while (i <= e) {
             if (nums[i] == 0) {
                 swap(nums[i], nums[b]);
                 b++;
-                i++;
+                i++;// 不需回头，0001110 => 0000111 可继续前行
             } else if (nums[i] == 1) {
                 i++;
             } else {

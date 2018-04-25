@@ -46,7 +46,33 @@
  */
 class Solution {
 public:
+    // 1维数组
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        size_t n = matrix.size();
+        if (n == 0) {
+            return false;
+        }
+        size_t m = matrix[0].size();
+        if (m == 0) {
+            return false;
+        }
+        int b = 0, e = m*n, mid;
+        while (b<e) {
+            mid = (b+e)/2;
+            if (target == matrix[mid/m][mid%m]) {
+                return true;
+            } else if (target < matrix[mid/m][mid%m]) {
+                e = mid;
+            } else {
+                b = mid+1;
+            }
+        }
+        return false;
+    }
+
+
+    // 基本做法，也可以当成一个一纬数组
+    bool searchMatrix1(vector<vector<int>>& matrix, int target) {
         size_t n = matrix.size();
         if (n == 0) {
             return false;

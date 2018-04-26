@@ -30,14 +30,41 @@
  */
 class Solution {
 public:
-    // 优化一下，记录下自顶向下的结果备查
+    // 再度优化，进到头再退回来，但是不用push 和pop vector used，直接加一个当前已填充的个数used_num来记录
+    // 就避免push pop了，因为可以直接覆写。
     vector<vector<int>> combine(int n, int k) {
+        vector<vector<int>> r;
+        if (k == 0 || n < k) {
+            return r;
+        }
+        vector<int> used(k, 0);
+        int next_used_loc = 0;
+
+        // 已用过的used，当前的结果r，总长度n，目前已经用过的最大used_max，还能用几个k
+        this->combineRR(used, next_used_loc, r, n, 0, k);
+        return r;
+    }
+    void combineRR(vector<int> &used, int next_used_loc, vector<vector<int>> &result, int n, int used_max, int left_k) {
+        if (left_k == 0) {
+            result.push_back(used);
+            return;
+        }
+
+        for (int i = used_max+1; i <= n ; ++i) {
+            used[next_used_loc] = i;
+            this->combineRR(used, next_used_loc+1, result, n, i, left_k-1);
+        }
+    }
+
+    // 再度优化，进到头再退回来
+    vector<vector<int>> combine3(int n, int k) {
         vector<int> used;
         vector<vector<int>> r;
         if (k == 0 || n < k) {
             return r;
         }
 
+        // 已用过的used，当前的结果r，总长度n，目前已经用过的最大used_max，还能用几个
         this->combineR(used, r, n, 0, k);
         return r;
     }
@@ -54,6 +81,7 @@ public:
         }
     }
     
+    // 优化一下，记录下自顶向下的结果备查
     map<pair<int,int>, vector<vector<int> > > m;
     vector<vector<int>> combine2(int n, int k) {
         vector<int> r_in;

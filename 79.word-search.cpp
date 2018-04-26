@@ -38,7 +38,7 @@ public:
 };
 class Solution {
 public:
-    // 改进DFS，不再用set记录状态，改为修改board
+    // 改进DFS，不再用set记录状态，改为修改board，就只用12ms
     bool exist(vector<vector<char>>& board, string word) {
         size_t n = board.size();
         if (n == 0) {

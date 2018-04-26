@@ -33,7 +33,22 @@
  */
 class Solution {
 public:
+    // 然后的思路是用f(n) = f(n-1)[n] + f(n)
+    // 还可以继续用递归，之前有过类似，但是本次换个做法，复制追加
     vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> r(1);
+        for (int i = 0; i < nums.size(); ++i) {
+            size_t rn = r.size();
+            for (int j = 0; j < rn; ++j) {
+                r.push_back(r[j]);
+                r[j].push_back(nums[i]);
+            }
+        }
+        return r;
+    }
+
+    // 最开始的思路类似p78，递归。
+    vector<vector<int>> subsets1(vector<int>& nums) {
         vector<vector<int>> r;
         vector<int> used;
 

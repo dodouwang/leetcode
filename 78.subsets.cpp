@@ -33,9 +33,28 @@
  */
 class Solution {
 public:
+    // 最好的思路是：
+    // 反正对于每个数，要么在要么不在，最终结果一共有2^n种。
+    // 那么可以用0~2^n-1来判断每一个bit是否为1，来决定加不加
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int nn = nums.size();
+        int n = 1<<nn;
+        vector<vector<int>> r(n);
+        for (int i = 0; i < n; ++i) {
+            int t = 1;
+            for (int j = 0; j < nn; ++j) {
+                if (i & t) {
+                    r[i].push_back(nums[j]);
+                }
+                t<<=1;
+            }
+        }
+        return r;
+    }
+    
     // 然后的思路是用f(n) = f(n-1)[n] + f(n)
     // 还可以继续用递归，之前有过类似，但是本次换个做法，复制追加
-    vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> subsets2(vector<int>& nums) {
         vector<vector<int>> r(1);
         for (int i = 0; i < nums.size(); ++i) {
             size_t rn = r.size();

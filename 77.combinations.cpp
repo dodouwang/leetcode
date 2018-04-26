@@ -31,8 +31,31 @@
 class Solution {
 public:
     // 优化一下，记录下自顶向下的结果备查
-    map<pair<int,int>, vector<vector<int> > > m;
     vector<vector<int>> combine(int n, int k) {
+        vector<int> used;
+        vector<vector<int>> r;
+        if (k == 0 || n < k) {
+            return r;
+        }
+
+        this->combineR(used, r, n, 0, k);
+        return r;
+    }
+    void combineR(vector<int> &used, vector<vector<int>> &result, int n, int used_max, int left_k) {
+        if (left_k == 0) {
+            result.push_back(used);
+            return;
+        }
+
+        for (int i = used_max+1; i <= n ; ++i) {
+            used.push_back(i);
+            this->combineR(used, result, n, i, left_k-1);
+            used.pop_back();
+        }
+    }
+    
+    map<pair<int,int>, vector<vector<int> > > m;
+    vector<vector<int>> combine2(int n, int k) {
         vector<int> r_in;
         vector<vector<int>> r;
         pair<int,int> p;
@@ -54,7 +77,7 @@ public:
             if (x!= this->m.end()) {
                 r = x->second;
             } else {
-                r = this->combine(n-1, k);
+                r = this->combine2(n-1, k);
                 this->m[make_pair(n-1,k)] = r;
             }
 
@@ -63,7 +86,7 @@ public:
             if (x!= this->m.end()) {
                 tmp = x->second;
             } else {
-                tmp = this->combine(n-1, k-1);
+                tmp = this->combine2(n-1, k-1);
                 this->m[make_pair(n-1,k-1)] = tmp;
             }
 

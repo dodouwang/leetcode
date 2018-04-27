@@ -60,11 +60,24 @@
  */
 class Solution {
 public:
+    // 更好的思路:
+    // 让i指向当前要写的位置,之前都是已经写好的,有序
+    // 遍历, 不再是和前一个比,而是和已经写入的前两个比.
+    int removeDuplicates(vector<int>& nums) {
+        int w = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (w < 2 || nums[i] > nums[w-2]) {
+                nums[w++] = nums[i];
+            }
+        }
+        return w;
+    }
+
     // 要写入的位置toW, 要读取的位置i，以及始终记录preV, accur_times
     // 进入循环时，保证上述均就位
     // 判断是否==preV，不等就写,位置加加,prevV更新,times= 1;
     // == prev的话,times++,若是2,就写,位置++ 若是3,就让i去找到比prevV大的第一个, 找不到时,就返回i
-    int removeDuplicates(vector<int>& nums) {
+    int removeDuplicates1(vector<int>& nums) {
         int n = nums.size();
         if (n == 0) return 0;
         int w = 1, r = 1, pre = nums[0], times = 1;

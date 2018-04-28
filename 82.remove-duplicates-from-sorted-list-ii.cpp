@@ -41,13 +41,15 @@ public:
     // 写循环时,首先要想好进入循环的状态是什么
     // 本次是等待判断当前,还是当前已经ok,准备判断next?
     // 前者需要找到前两个? 后者好一些
-    // 若while next不为空且一直相等, 连当前的一并干掉,更新指针
+    // 当前必不为空,且是第一次出现,每次循环中都找到相等的就一直继续, 直到next为空或不等
+    // 然后根据指针是否等于本次头,来判断有几个相等.
+    // 然后在根据next是否为空, 来处理
     ListNode* deleteDuplicates(ListNode* head) {
         if (!head) return NULL;
         ListNode t(0);
         t.next = head;
         ListNode *cur = head, *pre = &t;
-        while (cur->next) {
+        while (true) {
             ListNode *incur = cur;
             while (incur->next && incur->next->val == cur->val) {
                 incur = incur->next;

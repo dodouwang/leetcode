@@ -38,13 +38,35 @@
 
 class Solution {
 public:
+    // 或者把当前是否为空放在外层判断, 只保证进入循环时就是可退出状态.
+    // 当前必不为空,且是第一次出现,每次循环中都找到相等的就一直继续, 直到next为空或不等
+    // 然后根据指针是否等于本次头,来判断有几个相等.
+    // 然后在根据next是否为空, 来处理
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode t(0);
+        t.next = head;
+        ListNode *cur = head, *pre = &t;
+        while (cur) {
+            ListNode *incur = cur;
+            while (incur->next && incur->next->val == cur->val) {
+                incur = incur->next;
+            }
+            if (incur == cur) { // 当前只有单个, 不删
+                pre = cur;
+            } else { // incur != cur, 至少有两个重复了,全删
+                pre->next = incur->next;
+            }
+            cur = incur->next;
+        }
+        return t.next;
+    }
     // 写循环时,首先要想好进入循环的状态是什么
     // 本次是等待判断当前,还是当前已经ok,准备判断next?
     // 前者需要找到前两个? 后者好一些
     // 当前必不为空,且是第一次出现,每次循环中都找到相等的就一直继续, 直到next为空或不等
     // 然后根据指针是否等于本次头,来判断有几个相等.
     // 然后在根据next是否为空, 来处理
-    ListNode* deleteDuplicates(ListNode* head) {
+    ListNode* deleteDuplicates1(ListNode* head) {
         if (!head) return NULL;
         ListNode t(0);
         t.next = head;

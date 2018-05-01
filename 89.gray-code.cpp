@@ -47,22 +47,13 @@ public:
         return r;
     }
     void helper(vector<int> &r, map<int,int> &m, int n) {
-//        cout << "========== r =========" << endl;
-//        for (auto a : r) {
-//            cout << a << endl;
-//        }
-//        cout << "========== m =========" << endl;
-//        for (auto a : m) {
-//            if (a.second == 1) cout << a.first << endl;
-//        }
-
-        if (r.size() == (1<<n)) return;
         int cur = r.back();
         for (int i = 0; i<n; i++) {
             int t = cur ^ (1<<i);
             if (m[t] == 1) continue;
             r.push_back(t);
             m[t] = 1;
+            if (r.size() == (1<<n)) return;
             this->helper(r, m, n);
             if (r.size() == (1<<n)) return;
             m[t] = 0;
@@ -71,3 +62,8 @@ public:
         return;
     }
 };
+static int x=[](){
+    std::ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    return 0;
+}();

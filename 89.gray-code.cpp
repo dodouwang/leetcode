@@ -37,8 +37,63 @@
  */
 class Solution {
 public:
-    // vector pop push可能费时,尝试改用vector,但也没啥效果,性能差距不在这里
+    // 不用递归了
+    void utils(bitset<32>& bits, vector<int>& result, int k){
+        if (k==0) {
+            result.push_back(bits.to_ulong());
+        }
+        else {
+            utils(bits, result, k-1);
+            bits.flip(k-1);
+            utils(bits, result, k-1);
+        }
+    }
     vector<int> grayCode(int n) {
+        bitset<32> bits;
+        vector<int> result;
+        utils(bits, result, n);
+        return result;
+    }
+    
+//    vector<int> grayCode(int n) {
+//        int nums = (1<<n);
+//        int r[nums] = {0};
+//        map<int, int> m;
+//
+//        int cur = 0;
+//        int next_write = 0;
+//        r[next_write++] = cur;
+//        m[cur] = 1;
+//        while (next_write < nums) {
+//            cur = r[next_write-1];
+//            bool found_next = false;
+//            for (int i = 0; i<n; i++) {
+//                int t = cur ^ (1<<i);
+//                if (m[t] == 1) {
+//                    continue;
+//                } else {
+//                    r[next_write++] = t;
+//                    m[t] = 1;
+//                    found_next = true;
+//                    break;
+//                }
+//            }
+//            if (found_next) {
+//                continue;
+//            } else {
+//                next_write--;
+//                m[cur] = 0;
+//            }
+//            
+//
+//            
+//        }
+//        vector<int> rr(r, r+nums);
+//        return rr;
+//    }
+    
+    // vector pop push可能费时,尝试改用vector,但也没啥效果,性能差距不在这里
+    vector<int> grayCode2(int n) {
         int nums = (1<<n);
         int r[nums] = {0};
         map<int, int> m;

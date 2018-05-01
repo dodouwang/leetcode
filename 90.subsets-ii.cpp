@@ -40,12 +40,23 @@ public:
             while (j < nums.size() && nums[j] == nums[j-1]) j++;
             int n = j-i;
             int sz = r.size();
-            vector<int> tmp;
-            for (int k = 0; k < n; k++) {
-                tmp.push_back(nums[i]);
-                for (int m = 0; m < sz; m++) r.push_back(r[m]);
-                int nsz = r.size();
-                for (int m = 0; m < sz; m++) r[nsz-1-m].insert(r[nsz-1-m].end(), tmp.begin(), tmp.end());
+
+            // 下边的思路是:往里放n次,每次都是先复制一份原结果进去,再给这份结果添加k个当前元素
+            //vector<int> tmp;
+            //for (int k = 0; k < n; k++) {
+            //    tmp.push_back(nums[i]);
+            //    for (int m = 0; m < sz; m++) r.push_back(r[m]);
+            //    int nsz = r.size();
+            //    for (int m = 0; m < sz; m++) r[nsz-1-m].insert(r[nsz-1-m].end(), tmp.begin(), tmp.end());
+            //}
+
+            // 换一种:往里放当前结果元素个数次,每次都把当前结果从加1cur到+n cur
+            for (int k = 0; k < sz; k++) {
+                vector<int> tmp = r[k];
+                for (int m = 0; m < n; m++) {
+                    tmp.push_back(nums[i]);
+                    r.push_back(tmp);
+                }
             }
             i = j;
         }

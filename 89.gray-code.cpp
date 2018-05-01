@@ -37,8 +37,37 @@
  */
 class Solution {
 public:
-    // 要用递归时,需要先想好递归函数helper的进入和退出状态
+    // vector pop push可能费时,尝试改用vector,但也没啥效果,性能差距不在这里
     vector<int> grayCode(int n) {
+        int nums = (1<<n);
+        int r[nums] = {0};
+        map<int, int> m;
+        r[0] = 0;
+        m[0] = 1;
+        int p = 0;
+        this->helper(r, m, n, p);
+        vector<int> rr(r, r+nums);
+        return rr;
+    }
+    bool helper(int *r, map<int,int> &m, int n, int p) {
+        int cur = r[p];
+        for (int i = 0; i<n; i++) {
+            int t = cur ^ (1<<i);
+            if (m[t] == 1) continue;
+            r[++p] = t;
+            m[t] = 1;
+            if (p == (1<<n) - 1) return true;
+            bool suc = this->helper(r, m, n, p);
+            if (suc) return true;
+            p--;
+            m[t] = 0;
+        }
+        return false;
+    }
+
+
+    // 要用递归时,需要先想好递归函数helper的进入和退出状态, 7~8ms
+    vector<int> grayCode1(int n) {
         vector<int> r;
         map<int, int> m;
         r.push_back(0);

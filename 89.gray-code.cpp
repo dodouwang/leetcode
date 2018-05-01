@@ -37,8 +37,8 @@
  */
 class Solution {
 public:
+    // 要用递归时,需要先想好递归函数helper的进入和退出状态
     vector<int> grayCode(int n) {
-        int nums = (1 << n);
         vector<int> r;
         map<int, int> m;
         r.push_back(0);
@@ -46,20 +46,23 @@ public:
         this->helper(r, m, n);
         return r;
     }
-    void helper(vector<int> &r, map<int,int> &m, int n) {
+    // 进入状态: r承载当前已正确链接的code列表,m用来速查哪些已经正确链接
+    // 退出条件: 若当前层能再找到一个可用的凑够了code个数, 就返回true到上一层. 若找不到可用的, 返回false
+    // 内部要求: 若下一层调用返回了true, 就立马也返回, 若下一层返回了false,就去掉刚加上的这一步,换另外的
+    bool helper(vector<int> &r, map<int,int> &m, int n) {
         int cur = r.back();
         for (int i = 0; i<n; i++) {
             int t = cur ^ (1<<i);
             if (m[t] == 1) continue;
             r.push_back(t);
             m[t] = 1;
-            if (r.size() == (1<<n)) return;
-            this->helper(r, m, n);
-            if (r.size() == (1<<n)) return;
+            if (r.size() == (1<<n)) return true;
+            bool suc = this->helper(r, m, n);
+            if (suc) return true;
             m[t] = 0;
             r.pop_back();
         }
-        return;
+        return false;
     }
 };
 static int x=[](){

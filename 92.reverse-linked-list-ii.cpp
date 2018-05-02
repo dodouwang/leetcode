@@ -31,7 +31,32 @@
  */
 class Solution {
 public:
+
     ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if (m == n) {
+            return head;
+        }
+
+        ListNode l(0);
+        l.next = head;
+        ListNode *pp = &l;
+        int c = n - m;
+        while (--m) pp = pp->next;
+        ListNode *b = pp->next;
+        ListNode *i = b->next;
+        ListNode *p = b;
+        while (c--) {
+            ListNode *t = i;
+            i = i->next;
+            t->next = p;
+            p = t;
+        }
+        b->next = i;
+        pp->next = p;
+        return l.next;
+    }
+    // 过于笨拙，步进可有更优雅写法
+    ListNode* reverseBetween1(ListNode* head, int m, int n) {
         if (m == n) {
             return head;
         }

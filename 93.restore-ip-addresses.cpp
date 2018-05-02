@@ -35,6 +35,10 @@ public:
             return;
         } else if (p == s.length() || segs == 0) {
             return;
+        } else if (p + segs * 3 < s.length()) {
+            return;
+        } else if (p + segs * 1 > s.length()) {
+            return;
         }
 
         this->helper(pre + '.' + s[p], s, p+1, segs-1, r);

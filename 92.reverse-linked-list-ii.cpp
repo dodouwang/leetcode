@@ -31,7 +31,7 @@
  */
 class Solution {
 public:
-
+    // 从b的下一个开始处理，开头要 i = b->next;
     ListNode* reverseBetween(ListNode* head, int m, int n) {
         if (m == n) {
             return head;

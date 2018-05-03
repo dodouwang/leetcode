@@ -55,35 +55,44 @@ public:
 //        }
 //        return vector;
 //    }
-//    // 换个思路，有左就一直往里放，没左就输出自己，pop自己，然后放右
-//
-//    vector<int> inorderTraversal2(TreeNode *root) {
-//        vector<int> vector;
-//        stack<TreeNode *> stack;
-//        unordered_map<TreeNode *, bool> map;
-//        
-//        stack.push(root);
-//
-//        while(!stack.empty()) {
-//            TreeNode *tmp = stack.top();
-//            if (map[tmp]) {
-//                vector.push_back(tmp->val);
-//                stack.pop();
-//            } else if (tmp->left) {
-//                map[tmp] = true;
-//                stack.push(tmp->left);
-//            } else {
-//                map[tmp] = true;
-//                if (tmp->right) {
-//                    stack.push(tmp->right);
-//                }
-//            }
-//        }
-//        return vector;
-//    }
+
+    // 换个思路，记录下左子树是否已访问过，
+    // 若有左且否，就往里放左，标记已访问
+    // 若有左且是，就输出自己，pop自己，往里放右
+    // 若无左，就输出自己，pop自己，往里放右
+    vector<int> inorderTraversal(TreeNode *root) {
+        vector<int> vector;
+        stack<TreeNode *> stack;
+        unordered_map<TreeNode *, bool> map;
+        if (root == NULL) return vector;
+        
+        stack.push(root);
+        while(!stack.empty()) { 
+            TreeNode *tmp = stack.top();
+            if (tmp->left) {
+                if (!map[tmp]) {
+                    stack.push(tmp->left);
+                    map[tmp] = true;
+                } else {
+                    vector.push_back(tmp->val);
+                    stack.pop();
+                    if (tmp->right) {
+                        stack.push(tmp->right);
+                    }
+                }
+            } else {
+                vector.push_back(tmp->val);
+                stack.pop();
+                if (tmp->right) {
+                    stack.push(tmp->right);
+                }
+            }
+        }
+        return vector;
+    }
 
     // 换个思路，不更改节点，用map来记录，每个节点都是两进两出，比较繁琐
-    vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> inorderTraversal2(TreeNode* root) {
         stack<TreeNode *> s;
         vector<int> r;
         unordered_map<TreeNode *, bool> map;

@@ -37,24 +37,28 @@
  */
 class Solution {
 public:
-//    vector<int> inorderTraversal2(TreeNode *root) {
-//        vector<int> vector;
-//        stack<TreeNode *> stack;
-//        TreeNode *pCurrent = root;
-//
-//        while(!stack.empty() || pCurrent) {
-//            if(pCurrent) {
-//                stack.push(pCurrent);
-//                pCurrent = pCurrent->left;
-//            } else {
-//                TreeNode *pNode = stack.top();
-//                vector.push_back(pNode->val);
-//                stack.pop();
-//                pCurrent = pNode->right;
-//            }
-//        }
-//        return vector;
-//    }
+    // 之前的思路仅靠栈顶一个元素来推进, 必导致某些元素会两次出现在栈顶,就必须有标记.
+    // 换一个思路, 记录当前要判断的pc, 同时栈里放的只是因为往左走了还没有来的及输出的
+    // 每次判断一下当前要判断的pc, 如果是空的,那就pop一个,记录之,把pc更新为其右
+    // 如果不空,那就push进去,吧pc更新为其左
+    vector<int> inorderTraversal(TreeNode *root) {
+        vector<int> vector;
+        stack<TreeNode *> stack;
+        TreeNode *pCurrent = root;
+
+        while(!stack.empty() || pCurrent) {
+            if(pCurrent) {
+                stack.push(pCurrent);
+                pCurrent = pCurrent->left;
+            } else {
+                TreeNode *pNode = stack.top();
+                vector.push_back(pNode->val);
+                stack.pop();
+                pCurrent = pNode->right;
+            }
+        }
+        return vector;
+    }
 
     // 换个思路，记录下左子树是否已访问过，
     // 若有左且否，就往里放左，标记已访问
@@ -64,7 +68,7 @@ public:
     // 若有左且否，就往里放左，标记已访问
     // 否则（不需要考虑左了），就输出自己，pop自己，往里放右
     
-    vector<int> inorderTraversal(TreeNode *root) {
+    vector<int> inorderTraversal3(TreeNode *root) {
         vector<int> vector;
         stack<TreeNode *> stack;
         unordered_map<TreeNode *, bool> map;

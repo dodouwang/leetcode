@@ -60,6 +60,10 @@ public:
     // 若有左且否，就往里放左，标记已访问
     // 若有左且是，就输出自己，pop自己，往里放右
     // 若无左，就输出自己，pop自己，往里放右
+    // 分析之后，上述就变成了：
+    // 若有左且否，就往里放左，标记已访问
+    // 否则（不需要考虑左了），就输出自己，pop自己，往里放右
+    
     vector<int> inorderTraversal(TreeNode *root) {
         vector<int> vector;
         stack<TreeNode *> stack;
@@ -69,17 +73,27 @@ public:
         stack.push(root);
         while(!stack.empty()) { 
             TreeNode *tmp = stack.top();
-            if (tmp->left) {
-                if (!map[tmp]) {
-                    stack.push(tmp->left);
-                    map[tmp] = true;
-                } else {
-                    vector.push_back(tmp->val);
-                    stack.pop();
-                    if (tmp->right) {
-                        stack.push(tmp->right);
-                    }
-                }
+//            if (tmp->left) {
+//                if (!map[tmp]) {
+//                    stack.push(tmp->left);
+//                    map[tmp] = true;
+//                } else {
+//                    vector.push_back(tmp->val);
+//                    stack.pop();
+//                    if (tmp->right) {
+//                        stack.push(tmp->right);
+//                    }
+//                }
+//            } else {
+//                vector.push_back(tmp->val);
+//                stack.pop();
+//                if (tmp->right) {
+//                    stack.push(tmp->right);
+//                }
+//            }
+            if (tmp->left && !map[tmp]) {
+                stack.push(tmp->left);
+                map[tmp] = true;
             } else {
                 vector.push_back(tmp->val);
                 stack.pop();
@@ -87,6 +101,7 @@ public:
                     stack.push(tmp->right);
                 }
             }
+
         }
         return vector;
     }

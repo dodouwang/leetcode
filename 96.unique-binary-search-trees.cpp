@@ -30,6 +30,20 @@
  */
 class Solution {
 public:
+    int numTrees(int n) {
+        int r[n+1] = {0};
+        r[0] = 1;        
+        r[1] = 1;
+        for (int i = 2; i < n+1; ++i) {
+            for (int j = 0; j < i ; ++j) {
+                r[i] += r[j] * r[i-1-j];
+            }
+        }
+        return r[n];
+    }
+
+
+    // 下边这种做法是考虑到所有真实数字，但其实没有必要，只需要考虑一共有几个数即可，数的值不重要
     int getVTn(int b, int e, map<pair<int, int>, int> &mp) {
         if (b > e) {
             return 1;
@@ -37,7 +51,7 @@ public:
         return mp[make_pair(b,e)];
     }
 
-    int numTrees(int n) {
+    int numTrees1(int n) {
         map<pair<int, int>, int> mp;
         if (n < 1) {
             return 0;

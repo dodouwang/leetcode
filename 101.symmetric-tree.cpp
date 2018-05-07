@@ -49,12 +49,42 @@
  */
 class Solution {
 public:
+    // 非递归方式
+    bool isSymmetric(TreeNode* root) {
+        if (!root) return true;
+        stack<TreeNode*> s;
+        s.push(root->left);
+        s.push(root->right);
+        while (!s.empty()) {
+            TreeNode *a = s.top();
+            s.pop();
+            TreeNode *b = s.top();
+            s.pop();
+            if (a == NULL && b == NULL) {
+                continue;
+            } else if (a == NULL || b == NULL) {
+                return false;
+            }
+
+            if (a->val != b->val) {
+                return false;
+            }
+
+            s.push(a->left);
+            s.push(b->right);
+            s.push(a->right);
+            s.push(b->left);
+        }
+        return true;
+    }
+
+    // 递归方式
     bool helper(TreeNode* a, TreeNode* b) {
         if (a == NULL || b == NULL) return a == b;
         if (a->val != b->val) return false;
         return this->helper(a->left, b->right) && this->helper(a->right, b->left);
     }
-    bool isSymmetric(TreeNode* root) {
+    bool isSymmetric1(TreeNode* root) {
         if (!root) return true;
         return this->helper(root->left, root->right);
     }

@@ -57,7 +57,8 @@
  */
 class Solution {
 public:
-    bool isValidBST1(TreeNode* root) {
+    // 搜索二叉树的中序遍历是递增序列
+    bool isValidBST(TreeNode* root) {
         stack<TreeNode *> stack;
         TreeNode *pCurrent = root;
         bool is_first = true;
@@ -85,7 +86,7 @@ public:
         }
         return true;
     }
-    bool isValidBST(TreeNode* root) {
+    bool isValidBST1(TreeNode* root) {
         TreeNode *pre = NULL;
         return helper(root, pre);
     }

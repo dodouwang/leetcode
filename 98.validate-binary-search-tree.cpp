@@ -57,7 +57,7 @@
  */
 class Solution {
 public:
-    bool isValidBST(TreeNode* root) {
+    bool isValidBST1(TreeNode* root) {
         stack<TreeNode *> stack;
         TreeNode *pCurrent = root;
         bool is_first = true;
@@ -84,6 +84,18 @@ public:
             }
         }
         return true;
+    }
+    bool isValidBST(TreeNode* root) {
+        TreeNode *pre = NULL;
+        return helper(root, pre);
+    }
+
+    bool helper(TreeNode *cur, TreeNode *&pre) {
+        if (cur == NULL) return true;
+        if (!helper(cur->left, pre)) return false;
+        if (pre != NULL && cur->val <= pre->val) return false;
+        pre = cur;
+        return helper(cur->right, pre);
     }
 };
 static int x=[](){

@@ -47,14 +47,6 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-//#include <iostream>
-//using namespace std;
-//struct TreeNode {
-//    int val;
-//    TreeNode *left;
-//    TreeNode *right;
-//    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-//};
 
 class Solution {
 public:
@@ -86,17 +78,7 @@ public:
             return cur;
         }
         TreeNode *right_tail = flat_and_get_tail(cur->right);
-//        if (!right_tail) {
-//            cout << "RNULL" << endl;
-//        } else {
-//            cout << right_tail->val << endl;
-//        }
         TreeNode *left_tail = flat_and_get_tail(cur->left);
-//        if (!left_tail) {
-//            cout << "LNULL" << endl;
-//        } else {
-//            cout << left_tail->val << endl;
-//        }
         if (left_tail) {
             left_tail->right = cur->right;
             cur->right = cur->left;
@@ -114,24 +96,3 @@ static int x=[](){
     cin.tie(NULL);
     return 0;
 }();
-//int main() {
-//    TreeNode *a = new TreeNode(1);
-//    TreeNode *b = new TreeNode(2);
-//    TreeNode *c = new TreeNode(3);
-//    a->left = b;
-//    a->right = c;
-//    Solution s;
-//    s.flatten(a);
-//    cout << a << endl;
-//    cout << b << endl;
-//    cout << c << endl;
-//    
-//    cout << a->val << endl;
-//    cout << a->left << endl;
-//    cout << a->right->val << endl;
-//    cout << a->right->left << endl;
-//    cout << a->right->right->val << endl;
-//    cout << a->right->right->left << endl;
-//    cout << a->right->right->right << endl;
-//    return 0;
-//}

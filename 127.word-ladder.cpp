@@ -72,6 +72,48 @@
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        int ll = 0;
+        unordered_set<string> us;
+        for (auto word : wordList) {
+            us.insert(word);
+        }
+
+        queue<string> q;
+        q.push(beginWord);
+        while (!q.empty()) {
+            int qsize = q.size();
+            ll++;
+            for (int i = 0; i < qsize; i++) {
+                string word = q.front();
+                q.pop();
+                if (word == endWord) {
+                    return ll;
+                }
+                //cout << "FINDNEXT WORD"<<endl;
+                findNextWords(word, endWord, us, q);
+            }
+
+        }
+        return 0;
+
+    }
+
+    void findNextWords(string curWord, string endWord, unordered_set<string>& wordSet, queue<string>& q) {
+        wordSet.erase(curWord);
+        for (int i = 0; i < curWord.size(); i++) {
+            char tmp = curWord[i];
+            for (int j = 0; j < 26; j++) {
+                curWord[i] = 'a' + j;
+                if(wordSet.find(curWord) != wordSet.end()) {
+                    //cout << curWord << endl;
+                    q.push(curWord);
+                    wordSet.erase(curWord);
+                }
+            }
+            curWord[i] = tmp;
+        }
+    }
+    int ladderLength1(string beginWord, string endWord, vector<string>& wordList) {
         if (find(wordList.begin(), wordList.end(), endWord) == wordList.end()) {
             return 0;
         }

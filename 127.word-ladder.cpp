@@ -72,6 +72,10 @@
 class Solution {
 public:
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        if (find(wordList.begin(), wordList.end(), endWord) == wordList.end()) {
+            return 0;
+        }
+
         set<string> pushed;
         queue<string> q;
         q.push(beginWord);

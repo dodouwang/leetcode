@@ -71,6 +71,7 @@
 
 class Solution {
 public:
+    // 变成了不是遍历每一个去看是不是接上，而是遍历每一个能接上的，看是不是在全集中。
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         int ll = 0;
         unordered_set<string> us;

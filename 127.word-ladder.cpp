@@ -78,6 +78,7 @@ public:
 
         set<string> pushed;
         queue<string> q;
+        pushed.insert(beginWord);
         q.push(beginWord);
         int qn = q.size();
         int len = 1;

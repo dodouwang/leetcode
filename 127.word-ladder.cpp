@@ -114,6 +114,7 @@ public:
 //        }
 //        return false;
 //    }
+    map<pair<string,string>, bool> connect;
     bool canMatch(string a, string b) {
         int l = a.length();
         int diffs = 0;

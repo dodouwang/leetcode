@@ -99,7 +99,7 @@ public:
 
     }
 
-    void findNextWords1(string curWord, string endWord, unordered_set<string>& wordSet, queue<string>& q) {
+    void findNextWords(string curWord, string endWord, unordered_set<string>& wordSet, queue<string>& q) {
         wordSet.erase(curWord);
         for (auto i = wordSet.begin(); i != wordSet.end();) {
             if (!canMatch(curWord, *i)) {
@@ -110,7 +110,7 @@ public:
             wordSet.erase(*i++);
         }
     }
-    void findNextWords(string curWord, string endWord, unordered_set<string>& wordSet, queue<string>& q) {
+    void findNextWords1(string curWord, string endWord, unordered_set<string>& wordSet, queue<string>& q) {
         wordSet.erase(curWord);
         for (int i = 0; i < curWord.size(); i++) {
             char tmp = curWord[i];

@@ -109,20 +109,6 @@ public:
             q.push(*i);
             wordSet.erase(*i++);
         }
-
-
-//        for (int i = 0; i < curWord.size(); i++) {
-//            char tmp = curWord[i];
-//            for (int j = 0; j < 26; j++) {
-//                curWord[i] = 'a' + j;
-//                if(wordSet.find(curWord) != wordSet.end()) {
-//                    //cout << curWord << endl;
-//                    q.push(curWord);
-//                    wordSet.erase(curWord);
-//                }
-//            }
-//            curWord[i] = tmp;
-//        }
     }
     void findNextWords1(string curWord, string endWord, unordered_set<string>& wordSet, queue<string>& q) {
         wordSet.erase(curWord);

@@ -28,8 +28,8 @@
  */
 class Solution {
 public:
-    // 一遍，高端打法
-    RandomListNode *copyRandomList(RandomListNode *head) {
+    // 一遍，然而并不快，还复杂
+    RandomListNode *copyRandomList1(RandomListNode *head) {
         unordered_map<RandomListNode*, RandomListNode*> mp;
         unordered_multimap<RandomListNode*, RandomListNode*> mp_r;
         RandomListNode *t = head;
@@ -67,7 +67,7 @@ public:
         return r_tmp->next;
     }
     // 两遍，基础打法
-    RandomListNode *copyRandomList1(RandomListNode *head) {
+    RandomListNode *copyRandomList(RandomListNode *head) {
         unordered_map<RandomListNode*, RandomListNode*> mp;
         RandomListNode *t = head;
         RandomListNode *r_tmp = new RandomListNode(0);
@@ -75,8 +75,7 @@ public:
         while (t) {
             RandomListNode *r = new RandomListNode(t->label);
             mp[t] = r;
-            r_pre->next = r;
-            r_pre = r;
+            r_pre = r_pre->next = r;
             t = t->next;
         }
 

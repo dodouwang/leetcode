@@ -54,7 +54,7 @@ public:
     }
     // 两遍，基础打法
     RandomListNode *copyRandomList(RandomListNode *head) {
-        unordered_map<RandomListNode*, RandomListNode*> mp;
+        map<RandomListNode*, RandomListNode*> mp;
         RandomListNode *t = head;
         RandomListNode *r_tmp = new RandomListNode(0);
         RandomListNode *r_pre = r_tmp;

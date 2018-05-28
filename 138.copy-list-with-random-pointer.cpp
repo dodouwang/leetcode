@@ -29,14 +29,28 @@
 class Solution {
 public:
     // 一遍，高端打法
-    RandomListNode *copyRandomList1(RandomListNode *head) {
-        map<RandomListNode*, RandomListNode*> mp;
+    RandomListNode *copyRandomList(RandomListNode *head) {
+        unordered_map<RandomListNode*, RandomListNode*> mp;
+        unordered_multimap<RandomListNode*, RandomListNode*> mp_r;
         RandomListNode *t = head;
         RandomListNode *r_tmp = new RandomListNode(0);
         RandomListNode *r_pre = r_tmp;
         while (t) {
             RandomListNode *r = new RandomListNode(t->label);
             mp[t] = r;
+            if (t->random) {
+                if (mp[t->random] != NULL) {
+                    r->random = mp[t->random];
+                } else {
+                    mp_r.insert(make_pair(t->random, t));
+                }
+            }
+
+            auto range = mp_r.equal_range(t);
+            for (auto i = range.first; i != range.second; i++) {
+                mp[i->second]->random = r;
+            }
+
             r_pre->next = r;
             r_pre = r;
             t = t->next;
@@ -53,7 +67,7 @@ public:
         return r_tmp->next;
     }
     // 两遍，基础打法
-    RandomListNode *copyRandomList(RandomListNode *head) {
+    RandomListNode *copyRandomList1(RandomListNode *head) {
         unordered_map<RandomListNode*, RandomListNode*> mp;
         RandomListNode *t = head;
         RandomListNode *r_tmp = new RandomListNode(0);

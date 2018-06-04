@@ -59,21 +59,21 @@ public:
         can_reach[0] = true;
         for (int i = 1; i <= n; ++i) { // 计算从1到n的位置，看0到i-1是否能通过
             for (int j = 0; j < i; ++j) { //j是从0到i-1，其实也就是看-1到i-2的位置是否已经通过了。
-                if (can_reach[j]) {
-                    if (find(wordDict.begin(), wordDict.end(), s.substr(j, i-j)) != wordDict.end()) {
-                        can_reach[i] = true;
-                        break;
-                    }
-                }
-//                if (!can_reach[j]) continue;
-//                for (string cur_s : wordDict) {
-//                    if (s.substr(j, i-j) == cur_s) {
+//                if (can_reach[j]) {
+//                    if (find(wordDict.begin(), wordDict.end(), s.substr(j, i-j)) != wordDict.end()) {
 //                        can_reach[i] = true;
 //                        break;
 //                    }
 //                }
-//                // 只要能够到，那么就不需要管后续的j了。
-//                if (can_reach[i] == true) break;
+                if (!can_reach[j]) continue;
+                for (string cur_s : wordDict) {
+                    if (s.substr(j, i-j) == cur_s) {
+                        can_reach[i] = true;
+                        break;
+                    }
+                }
+                // 只要能够到，那么就不需要管后续的j了。
+                if (can_reach[i] == true) break;
             } // 退出时can_reach[i] 已更新为当前i-1的位置是否能通过
         }
         return can_reach[n];

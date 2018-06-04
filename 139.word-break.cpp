@@ -63,8 +63,8 @@ public:
                     can_reach[i] = true;
                     break;
                 }
-/*
-  这种遍历对比，40ms，不如上边三行二分查找，6ms
+                /*
+                  这种遍历对比，40ms，不如上边三行二分查找，6ms
                 if (!can_reach[j]) continue;
                 for (string cur_s : wordDict) {
                     if (s.substr(j, i-j) == cur_s) {
@@ -74,8 +74,8 @@ public:
                 }
                 // 只要能够到，那么就不需要管后续的j了。
                 if (can_reach[i] == true) break;
-*/
-            } // 退出时can_reach[i] 已更新为当前i-1的位置是否能通过
+                */
+            }
         }
         return can_reach[n];
     }

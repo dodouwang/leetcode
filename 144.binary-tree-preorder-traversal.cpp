@@ -38,6 +38,7 @@
  */
 class Solution {
 public:
+    // 非递归解法，把上一层的右子树放到左儿子一直往右下去的尽头。
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> r;
         while (root) {
@@ -48,6 +49,7 @@ public:
                     l = l->right;
                 }
                 l->right = root->right;
+                // 不加上下边这句的话，内存回收会有问题
                 root->right = NULL;
                 root = root->left;
             } else {

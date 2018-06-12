@@ -34,7 +34,10 @@
  */
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
+    // 默认思路是递推过去，需要先思考怎么更改链接，再形成代码
+    // 注意都是先把要被覆盖的给找地方存起来，然后可以更改它。
+    // 用x更改它之后，又可以继续更改x了。
+    ListNode* reverseList1(ListNode* head) {
         if (!head) {
             return head;
         }
@@ -49,6 +52,26 @@ public:
             tmpp->next->next = cur_part_head;
         }
         return tmp.next;
+    }
+    ListNode* reverseList2(ListNode* head) {
+        ListNode* pre = NULL;
+        while (head) {
+            ListNode* next = head -> next;
+            head -> next = pre;
+            pre = head;
+            head = next;
+        } 
+        return pre;
+    }
+
+    ListNode* reverseList(ListNode* head) {
+        if (!head || !head->next) {
+            return head;
+        }
+        ListNode *p = reverseList(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return p;
     }
 };
 static int x=[](){

@@ -40,6 +40,24 @@ class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> r;
+        while (root) {
+            r.push_back(root->val);
+            if (root->left) {
+                TreeNode *l = root->left;
+                while (l->right) {
+                    l = l->right;
+                }
+                l->right = root->right;
+                root->right = NULL;
+                root = root->left;
+            } else {
+                root = root->right;
+            }
+        }
+        return r;
+    }
+    vector<int> preorderTraversal1(TreeNode* root) {
+        vector<int> r;
         if (!root) {
             return r;
         }

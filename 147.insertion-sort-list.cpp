@@ -77,7 +77,14 @@ public:
                 // 相比2，这里更改了，不能再用head复制，因head可能前面已被插入
                 cmp = p_new_head->next;
                 pre_cmp = p_new_head;
+            } else if (cur->val >= pre_cur->val) {
+                pre_cmp = pre_cur;
+                cmp = cur;
+                pre_cur = cur;
+                cur = cur->next;
+                continue;
             }
+
             while (cmp != cur && cur->val >= cmp->val) {
                 pre_cmp = cmp;
                 cmp = cmp->next;

@@ -68,21 +68,25 @@ public:
         ListNode new_head(0);
         ListNode *p_new_head = &new_head;
         p_new_head->next = head;
+
         ListNode *cur = head->next;
         ListNode *pre_cur = head;
         ListNode *cmp = head;
         ListNode *pre_cmp = p_new_head;
         while (cur) {
-            if (cur->val < cmp->val) {
-                // 相比2，这里更改了，不能再用head复制，因head可能前面已被插入
-                cmp = p_new_head->next;
-                pre_cmp = p_new_head;
-            } else if (cur->val >= pre_cur->val) {
+            // 如果不小于于前一个的值，就直接更新后继续。
+            if (cur->val >= pre_cur->val) {
                 pre_cmp = pre_cur;
                 cmp = cur;
                 pre_cur = cur;
                 cur = cur->next;
                 continue;
+            }
+            // 如果小于前一个的值，才继续判断
+            // 若比cmp的值小，那就让cmp从头开始，否则沿用上一轮的cmp。
+            if (cur->val < cmp->val) {
+                cmp = p_new_head->next;
+                pre_cmp = p_new_head;
             }
 
             while (cmp != cur && cur->val >= cmp->val) {
@@ -90,13 +94,12 @@ public:
                 cmp = cmp->next;
             }
             if (cmp != cur) { // cur小于cmp才会进来
-                // 相比2，这里更改了，不用再判断pre_cmp不为空
                 pre_cmp->next = cur;
                 pre_cur->next = cur->next;
                 cur->next = cmp;
                 pre_cmp = cur;
                 cur = pre_cur->next;
-            } else {
+            } else { // cur一直不小于cmp，导致cmp最后== cur了。那就不动cmp了，光cur系列变化到下一个
                 pre_cur = cur;
                 cur = cur->next;
             }

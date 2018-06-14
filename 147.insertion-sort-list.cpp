@@ -70,6 +70,7 @@ public:
         ListNode *cmp = head;
         ListNode *pre_cmp = NULL;
         while (cur) {
+            // 不再从头开始，如果小于上一轮的cmp，才从头开始，否则直接就继续和上一轮的cmp进行比较
             if (cur->val < cmp->val) {
                 cmp = head;
                 pre_cmp = NULL;
@@ -78,14 +79,19 @@ public:
                 pre_cmp = cmp;
                 cmp = cmp->next;
             }
-            if (cmp != cur) {
+            if (cmp != cur) { // cur小于cmp才会进来
+                // 改前置链接
                 if (pre_cmp) pre_cmp->next = cur;
                 else head = cur;
+                // 跳过cur
                 pre_cur->next = cur->next;
+                // 改后置链接
                 cur->next = cmp;
+                // cmp不用改，pre_cmp需要改成cur
                 pre_cmp = cur;
+                // 下一个，pre_cur不用改
                 cur = pre_cur->next;
-            } else {
+            } else { // cur位置不需要变化，更新后继续
                 pre_cur = cur;
                 cur = cur->next;
             }

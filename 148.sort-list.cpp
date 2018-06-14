@@ -49,29 +49,29 @@ public:
         ListNode *p1 = head;
         ListNode *p2 = slow->next;
         slow->next = NULL;
+        // 然后开始merge
         p1 = sortList(p1);
         p2 = sortList(p2);
         ListNode new_head(0);
         ListNode *p_new_head = &new_head;
+        // 下方两行建立p_pre和p1的前后关系
         p_new_head->next = p1;
-        ListNode *c1 = p1;
-        ListNode *c2 = p2;
-        ListNode *c1_pre = p_new_head;
-        while (c1 && c2) {
-            if (c2->val < c1->val) {
-                c1_pre->next = c2;
-                ListNode *c2_next = c2->next;
-                c2->next = c1;
-                c1_pre = c2;
-                c2 = c2_next;
+        ListNode *p1_pre = p_new_head;
+        while (p1 && p2) {
+            if (p2->val < p1->val) {
+                p1_pre->next = p2;
+                ListNode *p2_next = p2->next;
+                // 下方两行更新p2作为p1_pre的前后关系
+                p2->next = p1;
+                p1_pre = p2;
+                p2 = p2_next;
             } else {
-                c1_pre = c1;
-                c1 = c1->next;
+                p1_pre = p1;
+                p1 = p1->next;
             }
         }
-
-        if (c2) {
-            c1_pre->next = c2;
+        if (p2) {
+            p1_pre->next = p2;
         }
         return p_new_head->next;
     }

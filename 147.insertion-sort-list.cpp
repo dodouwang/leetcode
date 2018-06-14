@@ -68,30 +68,23 @@ public:
         ListNode *cur = head->next;
         ListNode *pre_cur = head;
         while (cur) {
-            ListNode *next = cur->next;
             ListNode *cmp = head;
             ListNode *pre_cmp = NULL;
             while (cmp != cur && cur->val > cmp->val) {
-                if (pre_cmp) {
-                    pre_cmp = pre_cmp->next;
-                } else {
-                    pre_cmp = head;
-                }
+                if (pre_cmp) pre_cmp = pre_cmp->next;
+                else pre_cmp = head;
                 cmp = cmp->next;
             }
-
             if (cmp != cur) {
-                if (pre_cmp) {
-                    pre_cmp->next = cur;
-                } else {
-                    head = cur;
-                }
+                if (pre_cmp) pre_cmp->next = cur;
+                else head = cur;
                 pre_cur->next = cur->next;
                 cur->next = cmp;
+                cur = pre_cur->next;
             } else {
                 pre_cur = cur;
+                cur = cur->next;
             }
-            cur = next;
         }
         return head;
     }

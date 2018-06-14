@@ -71,8 +71,7 @@ public:
             ListNode *cmp = head;
             ListNode *pre_cmp = NULL;
             while (cmp != cur && cur->val > cmp->val) {
-                if (pre_cmp) pre_cmp = pre_cmp->next;
-                else pre_cmp = head;
+                pre_cmp = cmp;
                 cmp = cmp->next;
             }
             if (cmp != cur) {

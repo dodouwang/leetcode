@@ -73,8 +73,8 @@ public:
         ListNode *cmp = head;
         ListNode *pre_cmp = p_new_head;
         while (cur) {
-            // 不再从头开始，如果小于上一轮的cmp，才从头开始，否则直接就继续和上一轮的cmp进行比较
             if (cur->val < cmp->val) {
+                // 相比2，这里更改了，不能再用head复制，因head可能前面已被插入
                 cmp = p_new_head->next;
                 pre_cmp = p_new_head;
             }
@@ -83,17 +83,13 @@ public:
                 cmp = cmp->next;
             }
             if (cmp != cur) { // cur小于cmp才会进来
-                // 改前置链接
+                // 相比2，这里更改了，不用再判断pre_cmp不为空
                 pre_cmp->next = cur;
-                // 跳过cur
                 pre_cur->next = cur->next;
-                // 改后置链接
                 cur->next = cmp;
-                // cmp不用改，pre_cmp需要改成cur
                 pre_cmp = cur;
-                // 下一个，pre_cur不用改
                 cur = pre_cur->next;
-            } else { // cur位置不需要变化，更新后继续
+            } else {
                 pre_cur = cur;
                 cur = cur->next;
             }

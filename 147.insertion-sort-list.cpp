@@ -65,6 +65,45 @@ public:
         if (!head || !head->next) {
             return head;
         }
+        ListNode new_head(0);
+        ListNode *p_new_head = &new_head;
+        p_new_head->next = head;
+        ListNode *cur = head->next;
+        ListNode *pre_cur = head;
+        ListNode *cmp = head;
+        ListNode *pre_cmp = p_new_head;
+        while (cur) {
+            // 不再从头开始，如果小于上一轮的cmp，才从头开始，否则直接就继续和上一轮的cmp进行比较
+            if (cur->val < cmp->val) {
+                cmp = p_new_head->next;
+                pre_cmp = p_new_head;
+            }
+            while (cmp != cur && cur->val >= cmp->val) {
+                pre_cmp = cmp;
+                cmp = cmp->next;
+            }
+            if (cmp != cur) { // cur小于cmp才会进来
+                // 改前置链接
+                pre_cmp->next = cur;
+                // 跳过cur
+                pre_cur->next = cur->next;
+                // 改后置链接
+                cur->next = cmp;
+                // cmp不用改，pre_cmp需要改成cur
+                pre_cmp = cur;
+                // 下一个，pre_cur不用改
+                cur = pre_cur->next;
+            } else { // cur位置不需要变化，更新后继续
+                pre_cur = cur;
+                cur = cur->next;
+            }
+        }
+        return p_new_head->next;
+    }
+    ListNode* insertionSortList2(ListNode* head) {
+        if (!head || !head->next) {
+            return head;
+        }
         ListNode *cur = head->next;
         ListNode *pre_cur = head;
         ListNode *cmp = head;
@@ -97,7 +136,7 @@ public:
             }
         }
         return head;
-    }
+    }    
     // 原始方案
     ListNode* insertionSortList1(ListNode* head) {
         if (!head || !head->next) {

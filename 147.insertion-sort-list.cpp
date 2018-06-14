@@ -67,6 +67,38 @@ public:
         }
         ListNode *cur = head->next;
         ListNode *pre_cur = head;
+        ListNode *cmp = head;
+        ListNode *pre_cmp = NULL;
+        while (cur) {
+            if (cur->val < cmp->val) {
+                cmp = head;
+                pre_cmp = NULL;
+            }
+            while (cmp != cur && cur->val >= cmp->val) {
+                pre_cmp = cmp;
+                cmp = cmp->next;
+            }
+            if (cmp != cur) {
+                if (pre_cmp) pre_cmp->next = cur;
+                else head = cur;
+                pre_cur->next = cur->next;
+                cur->next = cmp;
+                pre_cmp = cur;
+                cur = pre_cur->next;
+            } else {
+                pre_cur = cur;
+                cur = cur->next;
+            }
+        }
+        return head;
+    }
+    // 原始方案
+    ListNode* insertionSortList1(ListNode* head) {
+        if (!head || !head->next) {
+            return head;
+        }
+        ListNode *cur = head->next;
+        ListNode *pre_cur = head;
         while (cur) {
             ListNode *cmp = head;
             ListNode *pre_cmp = NULL;
@@ -87,6 +119,7 @@ public:
         }
         return head;
     }
+
 };
 static int x=[](){
     std::ios::sync_with_stdio(false);

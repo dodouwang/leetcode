@@ -35,6 +35,35 @@ class Solution {
 public:
     void reverseWords(string &s) {
         size_t n = s.length();
+        reverse(s.begin(), s.end());
+        auto i = s.begin();
+        while (i != s.end()) {
+            if (*i != ' ') break;
+            else i = s.erase(i);
+        }
+        while (i < s.end()) {
+            auto head = i;
+            while (i < s.end() && *i != ' ') {
+                i++;
+                continue;
+            }
+            if (i == s.end()) {
+                reverse(head, s.end());
+                return;
+            }
+            reverse(head, i++);
+            while (i < s.end() && *i == ' ') {
+                i = s.erase(i);
+            }
+            if (i == s.end()) {
+                s.erase(--i);
+                return;
+            }
+        }
+    }
+
+    void reverseWords1(string &s) {
+        size_t n = s.length();
         helper(s, 0, n);
     }
     void helper(string &s, int b, int e) {

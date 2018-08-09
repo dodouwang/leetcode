@@ -34,7 +34,7 @@
 class Solution {
 public:
     void reverseWords(string &s) {
-        size_t n = s.length();
+        // 先翻转整体，再局部翻转
         reverse(s.begin(), s.end());
         auto i = s.begin();
 //        while (i != s.end()) {
@@ -42,13 +42,16 @@ public:
 //            else i = s.erase(i);
 //        }
         while (i < s.end()) {
+            // 上边循环外的删头部空白放到了这里，虽然看起来代码少了，但是实际上不必要每次都如此判断头部空白，因为尾部有处理了。
             while (i < s.end() && *i == ' ') {
+                // 注意string的erase会导致全部的迭代器失效，让后边的前进一位
+                // 所以不能像map那样erase(iter++)，那样一次性跳两位了。改用返回值。
                 i = s.erase(i);
             }
             auto head = i;
+            // 这种两个条件，循环外逐一判断是因为哪个条件退出的，体会一下。
             while (i < s.end() && *i != ' ') {
                 i++;
-                continue;
             }
             if (i == s.end()) {
                 reverse(head, s.end());

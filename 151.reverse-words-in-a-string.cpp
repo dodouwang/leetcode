@@ -37,11 +37,14 @@ public:
         size_t n = s.length();
         reverse(s.begin(), s.end());
         auto i = s.begin();
-        while (i != s.end()) {
-            if (*i != ' ') break;
-            else i = s.erase(i);
-        }
+//        while (i != s.end()) {
+//            if (*i != ' ') break;
+//            else i = s.erase(i);
+//        }
         while (i < s.end()) {
+            while (i < s.end() && *i == ' ') {
+                i = s.erase(i);
+            }
             auto head = i;
             while (i < s.end() && *i != ' ') {
                 i++;

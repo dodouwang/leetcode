@@ -30,7 +30,22 @@
  */
 class Solution {
 public:
+    // Fist we assume there is no zero in the A[]. The answer must be A[0] A[1] .... A[i] OR A[j] *A[j+1] A[n - 1]. (Try to prove yourself)
+    // Then when we have zero in the A[] (assum A[k] == 0). We could see A[0],A[1]...A[k - 1 ] As An Array and A[k + 1] A[k + 2]...A[n-1] is another.
     int maxProduct(vector<int>& nums) {
+        const int n = nums.size();
+        int ans = INT_MIN;
+        int front = 0;
+        int back = 0;
+        for (int i=0; i<n; i++) {
+            front = front ? front*nums[i] : nums[i];
+            back = back ? back*nums[n-1-i] : nums[n-1-i];
+            ans = max(ans, max(front, back));
+        }
+        return ans;
+    }
+    
+    int maxProduct1(vector<int>& nums) {
         int sz = nums.size();
         if (sz == 0) return 0;
         if (sz == 1) return nums[0];

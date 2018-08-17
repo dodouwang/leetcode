@@ -45,14 +45,15 @@
  */
 class Solution {
 public:
-ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-    ListNode *cur1 = headA, *cur2 = headB;
-    while(cur1 != cur2){
-        cur1 = cur1?cur1->next:headB;
-        cur2 = cur2?cur2->next:headA;
+    // 交叉走的话，最后总会重叠
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *cur1 = headA, *cur2 = headB;
+        while(cur1 != cur2){
+            cur1 = cur1?cur1->next:headB;
+            cur2 = cur2?cur2->next:headA;
+        }
+        return cur1;
     }
-    return cur1;
-}
     ListNode *getIntersectionNode1(ListNode *headA, ListNode *headB) {
         if (!headA || !headB) return NULL;
 
@@ -69,6 +70,7 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
             fast = fast->next->next;
             slow = slow->next;
         } while (fast != slow);
+        // 当一开始是重合的，要走一步之后才判断是否再度重合时，适合用do while
 
         if (!fast || !fast->next) {
             p1->next = NULL;

@@ -69,12 +69,10 @@ public:
 
         int loc = 0;
         int old_loc = -1;
-        cout << yushu << "---------------" << loc;
         while (yushu > 0) {
             auto iter = m.find(yushu);
             if (iter != m.end()) {
                 old_loc = iter->second;
-                cout << "===========break" << endl;
                 break;
             }
             m[yushu] = loc++;
@@ -82,8 +80,6 @@ public:
             long cur = yushu / d;
             v.push_back(cur);
             yushu = yushu % d;
-            cout << "============" << cur << endl;
-            cout << yushu << "---------------" << loc;
         }
 
         for (int i = 0; i < v.size(); ++i) {

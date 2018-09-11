@@ -49,7 +49,13 @@
  */
 class Solution {
 public:
+    // 注意必须加char，否则是int类型。
+    // string + char会直接追加，无需先把char转换为string
     string convertToTitle(int n) {
+        return n == 0 ? "" : convertToTitle((n - 1) / 26) + (char)('A' + (n - 1) % 26);
+    }
+    
+    string convertToTitle1(int n) {
         string ret = "";
         do{
             int cur = (n-1) % 26;
@@ -60,6 +66,7 @@ public:
         
         return ret;
     }
+
 };
 static int x=[](){
     std::ios::sync_with_stdio(false);
